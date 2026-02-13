@@ -1,0 +1,46 @@
+/* Global Theme Styles */
+:root {
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --radius: 8px;
+}
+
+.anime-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.anime-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.anime-card:hover {
+  transform: translateY(-4px);
+}
+
+.navbar {
+  background: white;
+  padding: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer {
+  background: var(--dark);
+  color: white;
+  padding: var(--spacing-lg);
+  text-align: center;
+  margin-top: 40px;
+}
+
+.video-player iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
+}
