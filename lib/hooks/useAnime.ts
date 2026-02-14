@@ -1,5 +1,5 @@
 // ============================================
-// 🪝 CUSTOM REACT HOOKS - FIXED
+// 🪝 CUSTOM REACT HOOKS - FINAL FIX
 // ============================================
 
 'use client';
@@ -18,7 +18,6 @@ export function useLatestAnime() {
   useEffect(() => {
     async function fetchData() {
       try {
-        // Check cache first
         const cached = CacheManager.get<AnimeItem[]>('latest');
         if (cached) {
           setData(cached);
@@ -61,7 +60,6 @@ export function useSearchAnime(query: string) {
       setError(null);
 
       try {
-        // Check cache first
         const cacheKey = `search_${query}`;
         const cached = CacheManager.get<AnimeSearchResult[]>(cacheKey);
         if (cached) {
@@ -82,21 +80,20 @@ export function useSearchAnime(query: string) {
       }
     }
 
-    const timeoutId = setTimeout(fetchData, 500); // Debounce
+    const timeoutId = setTimeout(fetchData, 500);
     return () => clearTimeout(timeoutId);
   }, [query]);
 
   return { data, loading, error };
 }
 
-// Hook for fetching anime detail - FIXED
+// Hook for fetching anime detail - FINAL FIX
 export function useAnimeDetail(url: string | null) {
   const [data, setData] = useState<AnimeDetail | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<APIError | null>(null);
 
   useEffect(() => {
-    // FIX: Check if url is null or empty
     if (!url) return;
 
     async function fetchData() {
@@ -104,7 +101,6 @@ export function useAnimeDetail(url: string | null) {
       setError(null);
 
       try {
-        // Check cache first
         const cacheKey = `detail_${url}`;
         const cached = CacheManager.get<AnimeDetail>(cacheKey);
         if (cached) {
@@ -113,8 +109,8 @@ export function useAnimeDetail(url: string | null) {
           return;
         }
 
-        // FIX: url is guaranteed to be string here (not null)
-        const response = await animeAPI.getDetail(url);
+        // FINAL FIX: Type assertion - TypeScript now knows url is string
+        const response = await animeAPI.getDetail(url as string);
         if (response.success && response.data) {
           setData(response.data);
           CacheManager.set(cacheKey, response.data);
