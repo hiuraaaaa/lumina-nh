@@ -1,11 +1,8 @@
-:root {
-  --primary: #667eea;
-  --secondary: #764ba2;
-  --success: #10b981;
-  --danger: #ef4444;
-  --dark: #1f2937;
-  --light: #f9fafb;
-}
+/* ============================================
+   🎨 GLOBAL STYLES - LUMINA NEKO
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -13,10 +10,25 @@
   box-sizing: border-box;
 }
 
+:root {
+  --primary: #667eea;
+  --secondary: #764ba2;
+  --success: #10b981;
+  --danger: #ef4444;
+  --dark: #1f2937;
+  --light: #f9fafb;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --radius: 8px;
+}
+
 body {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   min-height: 100vh;
+  color: #333;
+  line-height: 1.6;
 }
 
 .container {
@@ -27,15 +39,382 @@ body {
 
 .page-title {
   font-size: 32px;
+  font-weight: 700;
   color: white;
   margin-bottom: 30px;
   text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
+
+/* ============================================
+   📱 NAVBAR
+   ============================================ */
+
+.navbar {
+  background: white;
+  padding: var(--spacing-md) var(--spacing-lg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo:hover {
+  color: var(--secondary);
+}
+
+/* ============================================
+   🔍 SEARCH BAR
+   ============================================ */
+
+.search-bar {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  max-width: 500px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius);
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-bar input:focus {
+  border-color: var(--primary);
+}
+
+.search-bar button {
+  padding: 10px 24px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-bar button:hover {
+  background: var(--secondary);
+}
+
+/* ============================================
+   📺 ANIME GRID
+   ============================================ */
+
+.anime-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .anime-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+}
+
+/* ============================================
+   🎴 ANIME CARD
+   ============================================ */
+
+.anime-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.anime-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.anime-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.anime-card h3 {
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.4;
+  min-height: 60px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============================================
+   ⏳ LOADING
+   ============================================ */
+
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.loading-spinner::after {
+  content: '...';
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+/* ============================================
+   🎬 VIDEO PLAYER
+   ============================================ */
+
+.video-player {
+  background: white;
+  border-radius: var(--radius);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.player-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  margin-top: var(--spacing-md);
+}
+
+.player-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ============================================
+   🎯 SERVER SELECTOR
+   ============================================ */
+
+.server-selector {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-md);
+}
+
+.server-selector button {
+  padding: 8px 16px;
+  border: 2px solid #e5e7eb;
+  background: white;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.server-selector button.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.server-selector button:hover:not(.active) {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* ============================================
+   📖 ANIME DETAIL
+   ============================================ */
+
+.anime-detail {
+  background: white;
+  border-radius: var(--radius);
+  padding: var(--spacing-lg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.anime-detail h1 {
+  color: var(--dark);
+  margin-bottom: var(--spacing-md);
+  font-size: 28px;
+}
+
+.anime-detail img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: var(--radius);
+  margin-bottom: var(--spacing-md);
+}
+
+.anime-detail .info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: var(--spacing-md);
+  color: #6b7280;
+}
+
+.anime-detail .downloads {
+  margin-top: var(--spacing-lg);
+}
+
+.anime-detail .downloads h3 {
+  color: var(--dark);
+  margin: var(--spacing-md) 0 var(--spacing-sm);
+}
+
+.anime-detail .downloads a {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--success);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--radius);
+  margin: 4px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.anime-detail .downloads a:hover {
+  background: #059669;
+}
+
+/* ============================================
+   📄 PAGINATION
+   ============================================ */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.pagination a,
+.pagination span {
+  padding: 10px 20px;
+  background: white;
+  color: var(--primary);
+  text-decoration: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+}
+
+.pagination a:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   🦶 FOOTER
+   ============================================ */
+
+.footer {
+  background: var(--dark);
+  color: white;
+  padding: var(--spacing-lg);
+  text-align: center;
+  margin-top: 60px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* ============================================
+   ⚠️ ERROR MESSAGE
+   ============================================ */
 
 .error {
   background: var(--danger);
   color: white;
-  padding: 15px;
-  border-radius: 8px;
+  padding: 15px 20px;
+  border-radius: var(--radius);
   text-align: center;
+  margin: 20px 0;
+  font-weight: 600;
+}
+
+/* ============================================
+   📱 RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: var(--spacing-md);
+  }
+
+  .search-bar {
+    max-width: 100%;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .container {
+    padding: 12px;
+  }
+
+  .anime-card img {
+    height: 220px;
+  }
 }
