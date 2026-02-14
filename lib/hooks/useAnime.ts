@@ -1,5 +1,5 @@
 // ============================================
-// 🪝 CUSTOM REACT HOOKS
+// 🪝 CUSTOM REACT HOOKS - FIXED
 // ============================================
 
 'use client';
@@ -89,13 +89,14 @@ export function useSearchAnime(query: string) {
   return { data, loading, error };
 }
 
-// Hook for fetching anime detail
+// Hook for fetching anime detail - FIXED
 export function useAnimeDetail(url: string | null) {
   const [data, setData] = useState<AnimeDetail | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<APIError | null>(null);
 
   useEffect(() => {
+    // FIX: Check if url is null or empty
     if (!url) return;
 
     async function fetchData() {
@@ -112,6 +113,7 @@ export function useAnimeDetail(url: string | null) {
           return;
         }
 
+        // FIX: url is guaranteed to be string here (not null)
         const response = await animeAPI.getDetail(url);
         if (response.success && response.data) {
           setData(response.data);
@@ -127,9 +129,11 @@ export function useAnimeDetail(url: string | null) {
     fetchData();
   }, [url]);
 
-  return { data, loading, error, refetch: () => {
+  const refetch = () => {
     if (url) {
       CacheManager.remove(`detail_${url}`);
     }
-  }};
+  };
+
+  return { data, loading, error, refetch };
 }
